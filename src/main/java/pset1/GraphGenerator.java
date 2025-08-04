@@ -62,7 +62,8 @@ public class GraphGenerator {
     
     public static void main(String[] a) throws ClassNotFoundException {
         GraphGenerator gg = new GraphGenerator();
-        gg.createCFG("pset1.C"); // example invocation of createCFG
-        gg.createCFGWithMethodInvocation("pset1.D"); // example invocation of createCFGWithMethodInovcation
+        CFG psetC = gg.createCFG("pset1.C"); // example invocation of createCFG
+        CFG psetD = gg.createCFGWithMethodInvocation("pset1.D"); // example invocation of createCFGWithMethodInovcation
+        System.out.print(psetD.isReachable("main","pset1.D", "foo", "pset1.D"));
     }
 }

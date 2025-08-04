@@ -74,9 +74,25 @@ public class CFG {
         return nodes.size() + " nodes\n" + "nodes: " + nodes + '\n' + "edges: " + edges;
     }
 
-    public boolean isReachable(String methodFrom, String clazzFrom,
-                               String methodTo, String clazzTo) {
-        // you will implement this method in Question 2.2
-	return false; // dummy
+    public boolean isReachable(String methodFrom, String clazzFrom, String methodTo, String clazzTo) {
+        Set<Node> visited = new HashSet<>();
+        for (Node n : nodes) {
+            if (n.method.getName().equals(methodFrom) && n.clazz.getClassName().equals(clazzFrom)) {
+                if (dfs(n, methodTo, clazzTo, visited)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean dfs(Node current, String targetMethod, String targetClass, Set<Node> visited) {
+        if (visited.contains(current)) return false;
+        visited.add(current);
+        if (current.method.getName().equals(targetMethod) && current.clazz.getClassName().equals(targetClass)) {
+            return true;
+        }
+        for (Node neighbor : edges.get(current)) {
+            if (dfs(neighbor, targetMethod, targetClass, visited)) return true;
+        }
+        return false;
     }
 }
